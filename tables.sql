@@ -16,9 +16,8 @@ CREATE TABLE pessoa (
   numero NUMBER NOT NULL,
   complemento VARCHAR2(30), NOT NULL,
   cep VARCHAR2(8) NOT NULL,
-  idade NUMBER NOT NULL
+  idade NUMBER NOT NULL,
   CONSTRAINT pessoa_pk PRIMARY KEY (cpf)
-  CONSTRAINT pessoa_ck CHECK (cep LIKE '_____-___')
 );
 
 CREATE TABLE telefone (
@@ -29,11 +28,20 @@ CREATE TABLE telefone (
 );
 
 CREATE TABLE funcionario (
-  
+  cpf VARCHAR2(11),
+  cargo VARCHAR2(10),
+  cpf_supervisor VARCHAR2(11),
+  CONSTRAINT funcionario_pk PRIMARY KEY (cpf),
+  CONSTRAINT funcionario_pessoa_fk FOREIGN KEY (cpf) REFERENCES pessoa(cpf),
+  CONSTRAINT funcionario_funcionario_fk FOREIGN KEY (cpf_supervisor) REFERENCES funcionario(cpf),
+  CONSTRAINT funcionario_ck CHECK (cargo IN ('gerente','supervisor','atendente'))
 );
 
 CREATE TABLE cliente (
-  
+  cpf VARCHAR2(11),
+  pontos NUMBER,
+  CONSTRAINT cliente_pk PRIMARY KEY (cpf),
+  CONSTRAINT cliente_pessoa_fk FOREIGN KEY (cpf) REFERENCES pessoa(cpf)
 );
 
 CREATE TABLE produto (
