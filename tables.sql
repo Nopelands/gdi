@@ -15,7 +15,7 @@ CREATE TABLE pessoa (
   nome VARCHAR2(50) NOT NULL,
   rua VARCHAR2(40) NOT NULL,
   numero NUMBER NOT NULL,
-  complemento VARCHAR2(30) NOT NULL,
+  complemento VARCHAR2(30),
   cep VARCHAR2(8) NOT NULL,
   idade NUMBER NOT NULL,
   CONSTRAINT pessoa_pk PRIMARY KEY (cpf)
