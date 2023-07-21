@@ -43,6 +43,7 @@ CREATE TABLE funcionario (
 -- Cliente
 CREATE TABLE cliente (
   cpf VARCHAR2(11),
+  id_pontos NUMBER,
   pontos NUMBER,
   CONSTRAINT cliente_pk PRIMARY KEY (cpf),
   CONSTRAINT cliente_pessoa_fk FOREIGN KEY (cpf) REFERENCES pessoa(cpf)
