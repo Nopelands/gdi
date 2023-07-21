@@ -9,6 +9,7 @@ DROP TABLE funcionario;
 DROP TABLE telefone;
 DROP TABLE pessoa;
 
+-- Pessoa
 CREATE TABLE pessoa (
   cpf VARCHAR2(11) NOT NULL,
   nome VARCHAR2(50) NOT NULL,
@@ -20,6 +21,7 @@ CREATE TABLE pessoa (
   CONSTRAINT pessoa_pk PRIMARY KEY (cpf)
 );
 
+-- Telefone
 CREATE TABLE telefone (
   cpf VARCHAR2(11) NOT NULL,
   telefone VARCHAR2(11) NOT NULL,
@@ -27,6 +29,7 @@ CREATE TABLE telefone (
   CONSTRAINT telefone_cpf_fk FOREIGN KEY (cpf) REFERENCES pessoa(cpf)
 );
 
+-- Funcionário
 CREATE TABLE funcionario (
   cpf VARCHAR2(11),
   cargo VARCHAR2(10),
@@ -37,6 +40,7 @@ CREATE TABLE funcionario (
   CONSTRAINT funcionario_ck CHECK (cargo IN ('gerente','supervisor','atendente'))
 );
 
+-- Cliente
 CREATE TABLE cliente (
   cpf VARCHAR2(11),
   pontos NUMBER,
@@ -44,6 +48,7 @@ CREATE TABLE cliente (
   CONSTRAINT cliente_pessoa_fk FOREIGN KEY (cpf) REFERENCES pessoa(cpf)
 );
 
+-- Produto
 CREATE TABLE produto (
   codigo NUMBER NOT NULL,
   nome VARCHAR2(30) NOT NULL,
@@ -51,12 +56,14 @@ CREATE TABLE produto (
   CONSTRAINT produto_pk PRIMARY KEY (codigo)
 );
 
+-- Fornecedor
 CREATE TABLE fornecedor (
   cnpj VARCHAR2(14) NOT NULL,
   nome_da_empresa VARCHAR2(50) NOT NULL,
   CONSTRAINT fornecedor_pk PRIMARY KEY (cnpj)
 );
 
+-- Dependente
 CREATE TABLE dependente (
   nome_completo VARCHAR2(50) NOT NULL,
   cpf_empr VARCHAR2(11) NOT NULL,
@@ -64,6 +71,7 @@ CREATE TABLE dependente (
   CONSTRAINT dependente_fk FOREIGN KEY (cpf_empr) REFERENCES funcionario(cpf)
 );
 
+-- Produto Fornecido
 CREATE TABLE produtoFornecido (
   cnpj VARCHAR2(14) NOT NULL,
   codigo NUMBER NOT NULL,
@@ -72,6 +80,7 @@ CREATE TABLE produtoFornecido (
   CONSTRAINT produtoFornecido_produto_fk FOREIGN KEY (codigo) REFERENCES produto(codigo)
 );
 
+-- Reabastece
 CREATE TABLE reabastece (
   cnpj VARCHAR2(14),
   codigo NUMBER,
@@ -82,6 +91,7 @@ CREATE TABLE reabastece (
   CONSTRAINT reabastece_funcionario_fk FOREIGN KEY (cpf) REFERENCES funcionario(cpf)
 );
 
+-- Vende
 CREATE TABLE vende (
   cpf VARCHAR2(11) NOT NULL,
   cpf_cliente VARCHAR2(11) NOT NULL,
