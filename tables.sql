@@ -1,20 +1,20 @@
-DROP TABLE pessoa;
-DROP TABLE telefone;
-DROP TABLE funcionario;
-DROP TABLE cliente;
-DROP TABLE produto;
-DROP TABLE fornecedor;
-DROP TABLE dependente;
-DROP TABLE produtoFornecido;
-DROP TABLE reabastece;
 DROP TABLE vende;
+DROP TABLE reabastece;
+DROP TABLE produtoFornecido;
+DROP TABLE dependente;
+DROP TABLE fornecedor;
+DROP TABLE produto;
+DROP TABLE cliente;
+DROP TABLE funcionario;
+DROP TABLE telefone;
+DROP TABLE pessoa;
 
 CREATE TABLE pessoa (
   cpf VARCHAR2(11) NOT NULL,
   nome VARCHAR2(50) NOT NULL,
   rua VARCHAR2(40) NOT NULL,
   numero NUMBER NOT NULL,
-  complemento VARCHAR2(30), NOT NULL,
+  complemento VARCHAR2(30) NOT NULL,
   cep VARCHAR2(8) NOT NULL,
   idade NUMBER NOT NULL,
   CONSTRAINT pessoa_pk PRIMARY KEY (cpf)
@@ -53,7 +53,7 @@ CREATE TABLE produto (
 
 CREATE TABLE fornecedor (
   cnpj VARCHAR2(14) NOT NULL,
-  nome_da_empresa(50) NOT NULL,
+  nome_da_empresa VARCHAR2(50) NOT NULL,
   CONSTRAINT fornecedor_pk PRIMARY KEY (cnpj)
 );
 
@@ -77,7 +77,7 @@ CREATE TABLE reabastece (
   codigo NUMBER,
   cpf VARCHAR2(11),
   CONSTRAINT reabastece_pk PRIMARY KEY (cnpj,codigo,cpf),
-  CONSTRAINT reabastece_fornecedor_fk (cnpj) REFERENCES fornecedor(cnpj),
+  CONSTRAINT reabastece_fornecedor_fk FOREIGN KEY (cnpj) REFERENCES fornecedor(cnpj),
   CONSTRAINT reabastece_produto_fk FOREIGN KEY (codigo) REFERENCES produto(codigo),
   CONSTRAINT reabastece_funcionario_fk FOREIGN KEY (cpf) REFERENCES funcionario(cpf)
 );
