@@ -7,7 +7,7 @@ INSERT INTO pessoa (cpf,nome,rua,numero,complemento,cep,idade) VALUES ('48762903
 INSERT INTO pessoa (cpf,nome,rua,numero,complemento,cep,idade) VALUES ('20442555024','Ana Oliveira','Rua B',90,NULL,'29100181',51);
 INSERT INTO pessoa (cpf,nome,rua,numero,complemento,cep,idade) VALUES ('29909148030','Perry o ornitorrinco','maple drive',2308,'casinha no quintal','69309660',5);
 INSERT INTO pessoa (cpf,nome,rua,numero,complemento,cep,idade) VALUES ('29909148031','Agente P','maple drive',2308,'subsolo','69309660',5);
-INSERT INTO pessoa (cpf,nome,rua,numero,complemento,cep,idade) VALUES ('49804012014','Luiza Pereira','Avenida A',36,'Apt 102','69316006',12);
+INSERT INTO pessoa (cpf,nome,rua,numero,complemento,cep,idade) VALUES ('49804012014','Luiza Pereira','Avenida A',36,NULL,'69316006',12);
 INSERT INTO pessoa (cpf,nome,rua,numero,complemento,cep,idade) VALUES ('67575259090','Pedro Santos','Rua A',958,'Casa 2','55158530',37);
 INSERT INTO pessoa (cpf,nome,rua,numero,complemento,cep,idade) VALUES ('18878090077','Alma Armas','va',11,'hall-A','68373150',29);
 INSERT INTO pessoa (cpf,nome,rua,numero,complemento,cep,idade) VALUES ('82322846090','Julianne Natalie Stingray','va',11,'hall-A','68373150',27);
@@ -41,13 +41,13 @@ INSERT INTO funcionario (cpf,cargo,cpf_supervisor) VALUES ('29909148031','atende
 INSERT INTO funcionario (cpf,cargo,cpf_supervisor) VALUES ('67575259090','atendente','32034627024');
 
 -- clientes
-INSERT INTO cliente (cpf,pontos) VALUES ('39564815002',id_pontos.NEXTVAL,326);
-INSERT INTO cliente (cpf,pontos) VALUES ('85132578004',id_pontos.NEXTVAL,426);
-INSERT INTO cliente (cpf,pontos) VALUES ('48762903004',id_pontos.NEXTVAL,999999);
-INSERT INTO cliente (cpf,pontos) VALUES ('49804012014',id_pontos.NEXTVAL,0);
-INSERT INTO cliente (cpf,pontos) VALUES ('29909148030',id_pontos.NEXTVAL,10);
-INSERT INTO cliente (cpf,pontos) VALUES ('67575259090',id_pontos.NEXTVAL,5);
-INSERT INTO cliente (cpf,pontos) VALUES ('82523784041',id_pontos.NEXTVAL,56);
+INSERT INTO cliente (cpf,id_pontos,pontos) VALUES ('39564815002',id_pontos.NEXTVAL,326);
+INSERT INTO cliente (cpf,id_pontos,pontos) VALUES ('85132578004',id_pontos.NEXTVAL,426);
+INSERT INTO cliente (cpf,id_pontos,pontos) VALUES ('48762903004',id_pontos.NEXTVAL,999999);
+INSERT INTO cliente (cpf,id_pontos,pontos) VALUES ('49804012014',id_pontos.NEXTVAL,0);
+INSERT INTO cliente (cpf,id_pontos,pontos) VALUES ('29909148030',id_pontos.NEXTVAL,10);
+INSERT INTO cliente (cpf,id_pontos,pontos) VALUES ('67575259090',id_pontos.NEXTVAL,5);
+INSERT INTO cliente (cpf,id_pontos,pontos) VALUES ('82523784041',id_pontos.NEXTVAL,56);
 
 -- produtos
 INSERT INTO produto (codigo,nome,lote) VALUES (60649, 'achocolatado', '453ytu2-243');
@@ -80,9 +80,9 @@ INSERT INTO fornecedor (cnpj,nome_da_empresa) VALUES ('96104203000105','[object 
 
 -- dependentes
 INSERT INTO dependente (cpf_empr,nome_completo) VALUES ('82322846090','Fore');
-INSERT INTO dependente (cpf_empr,nome_completo) VALUES ('','');
-INSERT INTO dependente (cpf_empr,nome_completo) VALUES ('','');
-INSERT INTO dependente (cpf_empr,nome_completo) VALUES ('','');
+INSERT INTO dependente (cpf_empr,nome_completo) VALUES ('67575259090','Chris');
+INSERT INTO dependente (cpf_empr,nome_completo) VALUES ('29909148031','Phineas');
+INSERT INTO dependente (cpf_empr,nome_completo) VALUES ('29909148031','Ferb');
 
 -- produtos fornecidos
 INSERT INTO produtoFornecido (cnpj,codigo) VALUES ('33855174000195',60649);
@@ -107,12 +107,18 @@ INSERT INTO produtoFornecido (cnpj,codigo) VALUES ('96104203000105',04000);
 INSERT INTO produtoFornecido (cnpj,codigo) VALUES ('96104203000105',50273);
 
 -- reabastecimentos
-INSERT INTO reabastece (cnpj, codigo, cpf) VALUES ('',,'');
-INSERT INTO reabastece (cnpj, codigo, cpf) VALUES ('',,'');
-INSERT INTO reabastece (cnpj, codigo, cpf) VALUES ('',,'');
-INSERT INTO reabastece (cnpj, codigo, cpf) VALUES ('',,'');
-INSERT INTO reabastece (cnpj, codigo, cpf) VALUES ('',,'');
-INSERT INTO reabastece (cnpj, codigo, cpf) VALUES ('',,'');
+INSERT INTO reabastece (cnpj, codigo, cpf) VALUES ('33855174000195',60554,'18878090077');
+INSERT INTO reabastece (cnpj, codigo, cpf) VALUES ('88944414000110',01380,'67575259090');
+INSERT INTO reabastece (cnpj, codigo, cpf) VALUES ('04161171000153',64199,'29909148031');
+INSERT INTO reabastece (cnpj, codigo, cpf) VALUES ('13993089000186',67948,'18878090077');
+INSERT INTO reabastece (cnpj, codigo, cpf) VALUES ('97170639000157',42589,'29909148031');
+INSERT INTO reabastece (cnpj, codigo, cpf) VALUES ('76994489000126',13030,'67575259090');
+INSERT INTO reabastece (cnpj, codigo, cpf) VALUES ('96104203000105',50273,'18878090077');
 
 -- vendas
-INSERT INTO vende (cpf,cpf_cliente,codigo,data_e_hora) VALUES ('','',,'');
+INSERT INTO vende (cpf,cpf_cliente,codigo,data_e_hora) VALUES ('18878090077','48762903004',48234,to_date('2023-06-21','yyyy-mm-dd'));
+INSERT INTO vende (cpf,cpf_cliente,codigo,data_e_hora) VALUES ('67575259090','39564815002',20914,to_date('2023-06-30','yyyy-mm-dd'));
+INSERT INTO vende (cpf,cpf_cliente,codigo,data_e_hora) VALUES ('29909148031','85132578004',46494,to_date('2023-07-02','yyyy-mm-dd'));
+INSERT INTO vende (cpf,cpf_cliente,codigo,data_e_hora) VALUES ('29909148031','82523784041',64199,to_date('2023-07-08','yyyy-mm-dd'));
+INSERT INTO vende (cpf,cpf_cliente,codigo,data_e_hora) VALUES ('67575259090','48762903004',64868,to_date('2023-07-16','yyyy-mm-dd'));
+INSERT INTO vende (cpf,cpf_cliente,codigo,data_e_hora) VALUES ('18878090077','67575259090',13030,to_date('2023-07-23','yyyy-mm-dd'));
