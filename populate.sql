@@ -1,4 +1,4 @@
--- CREATE SEQUENCE
+CREATE SEQUENCE id_pontos INCREMENT by 1 START WITH 1;
 
 -- pessoas
 INSERT INTO pessoa (cpf,nome,rua,numero,complemento,cep,idade) VALUES ('00698199049','João da Silva','Rua A',34,NULL,'55158530',35);
@@ -41,13 +41,13 @@ INSERT INTO funcionario (cpf,cargo,cpf_supervisor) VALUES ('29909148031','atende
 INSERT INTO funcionario (cpf,cargo,cpf_supervisor) VALUES ('67575259090','atendente','32034627024');
 
 -- clientes
-INSERT INTO cliente (cpf,pontos) VALUES ('39564815002',326);
-INSERT INTO cliente (cpf,pontos) VALUES ('85132578004',426);
-INSERT INTO cliente (cpf,pontos) VALUES ('48762903004',999999);
-INSERT INTO cliente (cpf,pontos) VALUES ('49804012014',0);
-INSERT INTO cliente (cpf,pontos) VALUES ('29909148030',10);
-INSERT INTO cliente (cpf,pontos) VALUES ('67575259090',5);
-INSERT INTO cliente (cpf,pontos) VALUES ('82523784041',56);
+INSERT INTO cliente (cpf,pontos) VALUES ('39564815002',id_pontos.NEXTVAL,326);
+INSERT INTO cliente (cpf,pontos) VALUES ('85132578004',id_pontos.NEXTVAL,426);
+INSERT INTO cliente (cpf,pontos) VALUES ('48762903004',id_pontos.NEXTVAL,999999);
+INSERT INTO cliente (cpf,pontos) VALUES ('49804012014',id_pontos.NEXTVAL,0);
+INSERT INTO cliente (cpf,pontos) VALUES ('29909148030',id_pontos.NEXTVAL,10);
+INSERT INTO cliente (cpf,pontos) VALUES ('67575259090',id_pontos.NEXTVAL,5);
+INSERT INTO cliente (cpf,pontos) VALUES ('82523784041',id_pontos.NEXTVAL,56);
 
 -- produtos
 INSERT INTO produto (codigo,nome,lote) VALUES (60649, 'achocolatado', '453ytu2-243');
