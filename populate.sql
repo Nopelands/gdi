@@ -46,8 +46,8 @@ INSERT INTO cliente (cpf,id_pontos,pontos) VALUES ('85132578004',id_pontos.NEXTV
 INSERT INTO cliente (cpf,id_pontos,pontos) VALUES ('48762903004',id_pontos.NEXTVAL,999999);
 INSERT INTO cliente (cpf,id_pontos,pontos) VALUES ('49804012014',id_pontos.NEXTVAL,0);
 INSERT INTO cliente (cpf,id_pontos,pontos) VALUES ('29909148030',id_pontos.NEXTVAL,10);
-INSERT INTO cliente (cpf,id_pontos,pontos) VALUES ('67575259090',id_pontos.NEXTVAL,5);
-INSERT INTO cliente (cpf,id_pontos,pontos) VALUES ('82523784041',id_pontos.NEXTVAL,56);
+INSERT INTO cliente (cpf,id_pontos,pontos) VALUES ('00698199049',id_pontos.NEXTVAL,5);
+INSERT INTO cliente (cpf,id_pontos,pontos) VALUES ('68493475009',id_pontos.NEXTVAL,56);
 
 -- produtos
 INSERT INTO produto (codigo,nome,lote) VALUES (60649, 'achocolatado', '453ytu2-243');
@@ -119,6 +119,6 @@ INSERT INTO reabastece (cnpj, codigo, cpf) VALUES ('96104203000105',50273,'18878
 INSERT INTO vende (cpf,cpf_cliente,codigo,data_e_hora) VALUES ('18878090077','48762903004',48234,to_date('2023-06-21','yyyy-mm-dd'));
 INSERT INTO vende (cpf,cpf_cliente,codigo,data_e_hora) VALUES ('67575259090','39564815002',20914,to_date('2023-06-30','yyyy-mm-dd'));
 INSERT INTO vende (cpf,cpf_cliente,codigo,data_e_hora) VALUES ('29909148031','85132578004',46494,to_date('2023-07-02','yyyy-mm-dd'));
-INSERT INTO vende (cpf,cpf_cliente,codigo,data_e_hora) VALUES ('29909148031','82523784041',64199,to_date('2023-07-08','yyyy-mm-dd'));
+INSERT INTO vende (cpf,cpf_cliente,codigo,data_e_hora) VALUES ('29909148031','00698199049',64199,to_date('2023-07-08','yyyy-mm-dd'));
 INSERT INTO vende (cpf,cpf_cliente,codigo,data_e_hora) VALUES ('67575259090','48762903004',64868,to_date('2023-07-16','yyyy-mm-dd'));
-INSERT INTO vende (cpf,cpf_cliente,codigo,data_e_hora) VALUES ('18878090077','67575259090',13030,to_date('2023-07-23','yyyy-mm-dd'));
+INSERT INTO vende (cpf,cpf_cliente,codigo,data_e_hora) VALUES ('18878090077','68493475009',13030,to_date('2023-07-23','yyyy-mm-dd'));
