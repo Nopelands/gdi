@@ -5,13 +5,13 @@ ADD (sexo CHAR);
 
 -- Create Index
 
-
+CREATE INDEX id_lote 
+ON produto (lote);
 
 -- Insert Into
 
 INSERT INTO funcionario (cpf,cargo,cpf_supervisor) 
 VALUES ('00698199049', 'atendente', '82322846090');
-
 
 -- Update
 
@@ -50,6 +50,13 @@ SELECT codigo FROM produto
 WHERE lote IS NOT NULL;
 
 -- Inner Join
+
+select P.nome, C.cpf, C.pontos, COUNT(V.cpf_cliente) compras
+FROM cliente C
+INNER JOIN pessoa P ON P.cpf = C.cpf
+INNER JOIN Vende V ON V.cpf_cliente = C.cpf
+GROUP BY P.nome, C.cpf, C.pontos;
+
 -- Max
 
 SELECT MAX (idade) FROM pessoa;
@@ -99,7 +106,6 @@ WHERE F.cpf = D.cpf_empr
 -- GRANT INSERT ON cliente TO vendedor
 -- REVOKE UPDATE ON cliente FROM hackerman
 
--- PL
 -- Record
 -- Table
 -- Bloco Anonimo
