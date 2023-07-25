@@ -88,9 +88,15 @@ GROUP BY cnpj HAVING COUNT(*) > 1;
 
 -- Union || Intersect Minus
 
+(SELECT cpf FROM funcionario) INTERSECT (SELECT cpf FROM vende);
 
 -- Create View
+
+CREATE VIEW funcComDep AS SELECT F.nome FROM funcionario F, dependente D
+WHERE F.cpf = D.cpf_empr
 -- Grant / Revoke
 
+-- GRANT INSERT ON cliente TO vendedor
+-- REVOKE UPDATE ON cliente FROM hackerman
 
 -- PL
