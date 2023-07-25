@@ -100,3 +100,23 @@ WHERE F.cpf = D.cpf_empr
 -- REVOKE UPDATE ON cliente FROM hackerman
 
 -- PL
+-- Record
+-- Table
+-- Bloco Anonimo
+-- Create Procedure
+-- Create Function
+-- %TYPE
+-- %ROWTYPE
+-- IF ELSIF
+-- CASE WHEN
+-- LOOP EXIT WHEN
+-- WHILE LOOP
+-- FOR IN LOOP
+-- SELECT INTO
+-- CURSOR (OPEN/FETCH/CLOSE)
+-- EXCEPTION WHEN
+-- IN OUT
+-- CREATE OR REPLACE PACKAGE
+-- CREATE OR REPLACE PACKAGE BODY
+-- CREATE OR REPLACE TRIGGER (comando)
+-- CREATE OR REPLACE TRIGGER (linha)
