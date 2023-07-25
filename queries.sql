@@ -1,0 +1,29 @@
+-- Alter Table
+-- Create Index
+-- Insert Into
+-- Update
+-- Delete
+-- Select-From-Where
+-- Between
+-- In
+-- Like
+-- Is Null || Is Not Null
+-- Inner Join
+-- Max
+-- Min
+-- Avg
+-- Count
+-- Left || Right || Full Outer Join
+-- Subconsulta com Operador Relacional
+-- Subconsulta com In
+-- Subconsulta com Any
+-- Subconsulta com All
+-- Order By
+-- Group By
+-- Having
+-- Union || Intersect Minus
+-- Create View
+-- Grant / Revoke
+
+
+-- PL
