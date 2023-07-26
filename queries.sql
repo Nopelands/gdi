@@ -131,11 +131,88 @@ WHERE F.cpf = D.cpf_empr
 -- GRANT INSERT ON cliente TO vendedor
 -- REVOKE UPDATE ON cliente FROM hackerman
 
+
 -- Record
+
+DECLARE
+  -- Definindo um registro (record) com campos correspondentes à tabela 'pessoa'
+  TYPE pessoa_record IS RECORD (
+    cpf pessoa.cpf%TYPE,
+    nome pessoa.nome%TYPE,
+    rua pessoa.rua%TYPE,
+    numero pessoa.numero%TYPE,
+    complemento pessoa.complemento%TYPE,
+    cep pessoa.cep%TYPE,
+    idade pessoa.idade%TYPE
+  );
+
+  -- Declarando uma variável do tipo 'pessoa_record'
+  pessoa_rec pessoa_record;
+BEGIN
+  -- Atribuindo valores ao registro 'pessoa_rec'
+  pessoa_rec.cpf := '00698199049';
+  pessoa_rec.nome := 'João da Silva';
+  pessoa_rec.rua := 'Rua A';
+  pessoa_rec.numero := 34;
+  pessoa_rec.complemento := NULL;
+  pessoa_rec.cep := '55158530';
+  pessoa_rec.idade := 35;
+
+  -- Exemplo de uso do registro
+  DBMS_OUTPUT.PUT_LINE('Nome: ' || pessoa_rec.nome);
+END;
+
+
 -- Table
+
+DECLARE
+  -- Criando um tipo de tabela para armazenar dados de clientes
+  TYPE cliente_table IS TABLE OF cliente%ROWTYPE;
+
+  -- Declarando uma variável do tipo 'cliente_table'
+  clientes cliente_table;
+BEGIN
+  -- Selecionando dados da tabela 'cliente' e armazenando no tipo de tabela 'clientes'
+  SELECT * BULK COLLECT INTO clientes FROM cliente;
+
+  -- Percorrendo os registros da tabela 'clientes'
+  FOR i IN 1..clientes.COUNT LOOP
+    DBMS_OUTPUT.PUT_LINE('Cliente: ' || clientes(i).nome || ', CPF: ' || clientes(i).cpf);
+  END LOOP;
+END;
+
+
 -- Bloco Anonimo
+
+BEGIN
+  -- Bloco de código anônimo
+  -- Coloque suas instruções PL/SQL aqui
+  DBMS_OUTPUT.PUT_LINE('Olá, mundo!');
+END;
+
+
 -- Create Procedure
+
+CREATE OR REPLACE PROCEDURE aumentar_pontos (p_cpf VARCHAR2, p_pontos NUMBER) AS
+  -- Declarações de variáveis locais (se necessário)
+BEGIN
+  -- Lógica do procedimento para aumentar os pontos de um cliente pelo CPF
+  UPDATE cliente SET pontos = pontos + p_pontos WHERE cpf = p_cpf;
+  COMMIT;
+END;
+
+
 -- Create Function
+
+CREATE OR REPLACE FUNCTION calcular_idade (p_cpf VARCHAR2) RETURN NUMBER AS
+  v_idade NUMBER;
+BEGIN
+  -- Lógica da função para calcular a idade de uma pessoa pelo CPF
+  SELECT idade INTO v_idade FROM pessoa WHERE cpf = p_cpf;
+  RETURN v_idade;
+END;
+
+
 -- %TYPE
 
 DECLARE
