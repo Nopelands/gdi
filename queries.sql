@@ -74,10 +74,35 @@ SELECT AVG (idade) FROM pessoa;
 SELECT COUNT (*) FROM produtoFornecido;
 
 -- Left || Right || Full Outer Join
+
+SELECT produto.nome, produto.lote, produtofornecido.cnpj
+FROM produto
+LEFT JOIN produtofornecido
+ON produto.codigo = produtofornecido.codigo
+ORDER BY produto.nome;
+
 -- Subconsulta com Operador Relacional
+
+SELECT * FROM cliente
+WHERE pontos > 50;
+
 -- Subconsulta com In
+
+SELECT * FROM pessoa
+WHERE rua IN ('maple drive', 'Rua A');
+
 -- Subconsulta com Any
+
+SELECT nome_da_empresa FROM fornecedor
+WHERE cnpj = ANY
+(SELECT cnpj FROM produtoFornecido WHERE codigo = '60649');
+
 -- Subconsulta com All
+
+SELECT nome_da_empresa FROM fornecedor
+WHERE cnpj = ALL
+(SELECT cnpj FROM produtoFornecido WHERE codigo = '61727');
+
 -- Order By
 
 SELECT nome FROM pessoa
