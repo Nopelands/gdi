@@ -137,17 +137,211 @@ WHERE F.cpf = D.cpf_empr
 -- Create Procedure
 -- Create Function
 -- %TYPE
+
+DECLARE
+  v_nome pessoa.nome%TYPE;
+BEGIN
+  -- Atribuindo valor à variável usando o tipo de dado da coluna 'nome' da tabela 'pessoa'
+  v_nome := 'João da Silva';
+
+  -- Exemplo de uso da variável
+  DBMS_OUTPUT.PUT_LINE('Nome: ' || v_nome);
+END;
+
 -- %ROWTYPE
+
+DECLARE
+  v_cliente cliente%ROWTYPE;
+BEGIN
+  -- Selecionando um registro da tabela 'cliente' e armazenando na variável 'v_cliente'
+  SELECT * INTO v_cliente FROM cliente WHERE cpf = '00698199049';
+
+  -- Exemplo de uso da variável
+  DBMS_OUTPUT.PUT_LINE('Cliente: ' || v_cliente.nome || ', CPF: ' || v_cliente.cpf);
+END;
+
 -- IF ELSIF
+
+DECLARE
+  v_idade NUMBER := 25;
+BEGIN
+  -- Verificando a idade da pessoa
+  IF v_idade < 18 THEN
+    DBMS_OUTPUT.PUT_LINE('Menor de idade.');
+  ELSIF v_idade >= 18 AND v_idade < 60 THEN
+    DBMS_OUTPUT.PUT_LINE('Adulto.');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('Idoso.');
+  END IF;
+END;
+
 -- CASE WHEN
+
+DECLARE
+  v_cargo funcionario.cargo%TYPE := 'gerente';
+BEGIN
+  -- Utilizando CASE para determinar o tipo de cargo e exibir uma mensagem correspondente
+  CASE v_cargo
+    WHEN 'gerente' THEN
+      DBMS_OUTPUT.PUT_LINE('Cargo: Gerente');
+    WHEN 'supervisor' THEN
+      DBMS_OUTPUT.PUT_LINE('Cargo: Supervisor');
+    ELSE
+      DBMS_OUTPUT.PUT_LINE('Cargo: Atendente');
+  END CASE;
+END;
+
 -- LOOP EXIT WHEN
+
+DECLARE
+  v_contador NUMBER := 1;
+BEGIN
+  -- Loop para exibir valores de 1 a 5
+  LOOP
+    EXIT WHEN v_contador > 5;
+    DBMS_OUTPUT.PUT_LINE('Valor: ' || v_contador);
+    v_contador := v_contador + 1;
+  END LOOP;
+END;
+
 -- WHILE LOOP
+
+DECLARE
+  v_contador NUMBER := 1;
+BEGIN
+  -- Loop WHILE para exibir valores de 1 a 5
+  WHILE v_contador <= 5 LOOP
+    DBMS_OUTPUT.PUT_LINE('Valor: ' || v_contador);
+    v_contador := v_contador + 1;
+  END LOOP;
+END;
+
 -- FOR IN LOOP
+
+DECLARE
+  v_total_pontos NUMBER := 0;
+BEGIN
+  -- Loop FOR IN para calcular o total de pontos dos clientes
+  FOR c IN (SELECT pontos FROM cliente) LOOP
+    v_total_pontos := v_total_pontos + c.pontos;
+  END LOOP;
+
+  -- Exibindo o resultado
+  DBMS_OUTPUT.PUT_LINE('Total de Pontos: ' || v_total_pontos);
+END;
+
 -- SELECT INTO
+
+DECLARE
+  v_nome cliente.nome%TYPE;
+BEGIN
+  -- Selecionando o nome de um cliente pelo CPF e armazenando na variável 'v_nome'
+  SELECT nome INTO v_nome FROM cliente WHERE cpf = '00698199049';
+
+  -- Exemplo de uso da variável
+  DBMS_OUTPUT.PUT_LINE('Nome do cliente: ' || v_nome);
+END;
+
 -- CURSOR (OPEN/FETCH/CLOSE)
+
+DECLARE
+  -- Declarando um cursor para selecionar dados da tabela 'cliente'
+  CURSOR c_clientes IS
+    SELECT nome, cpf FROM cliente;
+  
+  -- Declarando variáveis para armazenar os valores do cursor
+  v_nome cliente.nome%TYPE;
+  v_cpf cliente.cpf%TYPE;
+BEGIN
+  -- Abrindo o cursor
+  OPEN c_clientes;
+
+  -- Loop para percorrer os registros do cursor
+  LOOP
+    FETCH c_clientes INTO v_nome, v_cpf;
+    EXIT WHEN c_clientes%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE('Cliente: ' || v_nome || ', CPF: ' || v_cpf);
+  END LOOP;
+
+  -- Fechando o cursor
+  CLOSE c_clientes;
+END;
+
 -- EXCEPTION WHEN
+
+DECLARE
+  v_total NUMBER;
+BEGIN
+  -- Bloco que pode gerar uma exceção (divisão por zero)
+  v_total := 10 / 0;
+
+EXCEPTION
+  -- Tratando a exceção de divisão por zero
+  WHEN ZERO_DIVIDE THEN
+    DBMS_OUTPUT.PUT_LINE('Erro: Divisão por zero!');
+END;
+
 -- IN OUT
+
+CREATE OR REPLACE PROCEDURE obter_cliente(IN p_cpf VARCHAR2, OUT p_nome cliente.nome%TYPE) AS
+BEGIN
+  -- Selecionando o nome de um cliente pelo CPF e retornando através do parâmetro OUT
+  SELECT nome INTO p_nome FROM cliente WHERE cpf = p_cpf;
+END;
+
 -- CREATE OR REPLACE PACKAGE
+
+CREATE OR REPLACE PACKAGE minha_package AS
+  -- Declarando tipos, constantes, procedimentos e funções
+  TYPE cliente_record IS RECORD (
+    cpf cliente.cpf%TYPE,
+    nome cliente.nome%TYPE,
+    pontos cliente.pontos%TYPE
+  );
+  
+  PROCEDURE aumentar_pontos(p_cpf VARCHAR2, p_pontos NUMBER);
+  FUNCTION calcular_idade(p_cpf VARCHAR2) RETURN NUMBER;
+END minha_package;
+
 -- CREATE OR REPLACE PACKAGE BODY
+
+CREATE OR REPLACE PACKAGE BODY minha_package AS
+  PROCEDURE aumentar_pontos(p_cpf VARCHAR2, p_pontos NUMBER) AS
+  BEGIN
+    -- Lógica para aumentar os pontos de um cliente pelo CPF
+    UPDATE cliente SET pontos = pontos + p_pontos WHERE cpf = p_cpf;
+    COMMIT;
+  END;
+
+  FUNCTION calcular_idade(p_cpf VARCHAR2) RETURN NUMBER AS
+    v_idade NUMBER;
+  BEGIN
+    -- Lógica para calcular a idade de uma pessoa pelo CPF
+    SELECT idade INTO v_idade FROM pessoa WHERE cpf = p_cpf;
+    RETURN v_idade;
+  END;
+END minha_package;
+
 -- CREATE OR REPLACE TRIGGER (comando)
+
+CREATE OR REPLACE TRIGGER meu_trigger
+BEFORE INSERT ON cliente
+FOR EACH ROW
+BEGIN
+  -- Lógica do trigger antes de inserir um novo cliente
+  IF :NEW.idade < 18 THEN
+    raise_application_error(-20001, 'Cliente deve ser maior de idade.');
+  END IF;
+END;
+
 -- CREATE OR REPLACE TRIGGER (linha)
+
+CREATE OR REPLACE TRIGGER meu_trigger
+BEFORE INSERT ON cliente
+FOR EACH ROW
+BEGIN
+  -- Lógica do trigger antes de inserir um novo cliente
+  IF :NEW.idade < 18 THEN
+    raise_application_error(-20001, 'Cliente deve ser maior de idade.');
+  END IF;
+END;
