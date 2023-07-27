@@ -83,13 +83,15 @@ ORDER BY produto.nome;
 
 -- Subconsulta com Operador Relacional
 
-SELECT * FROM cliente
-WHERE pontos > 50;
+SELECT cpf FROM cliente
+WHERE cpf IN (SELECT cpf_cliente FROM vende 
+WHERE data_e_hora <= to_date('2023-06-30','yyyy-mm-dd'));
 
 -- Subconsulta com In
 
-SELECT * FROM pessoa
-WHERE rua IN ('maple drive', 'Rua A');
+SELECT nome_da_empresa FROM fornecedor
+WHERE cnpj IN (SELECT cnpj FROM produtofornecido
+WHERE codigo IN ('4379', '1380', '64199'));
 
 -- Subconsulta com Any
 
@@ -186,7 +188,6 @@ END;
 
 BEGIN
   -- Bloco de código anônimo
-  -- Coloque suas instruções PL/SQL aqui
   DBMS_OUTPUT.PUT_LINE('Olá, mundo!');
 END;
 
