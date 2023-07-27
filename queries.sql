@@ -128,6 +128,7 @@ GROUP BY cnpj HAVING COUNT(*) > 1;
 
 CREATE VIEW funcComDep AS SELECT F.nome FROM funcionario F, dependente D
 WHERE F.cpf = D.cpf_empr
+  
 -- Grant / Revoke
 
 -- GRANT INSERT ON cliente TO vendedor
