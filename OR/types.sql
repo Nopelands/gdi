@@ -17,16 +17,16 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT(
   cep VARCHAR(8),
   idade NUMBER,
   telefone tp_array_telefone,
-  FINAL MEMBER FUNCTION mediaIdade RETURN NUMBER,
+  FINAL MEMBER FUNCTION quantidadeTelefones RETURN NUMBER,
   MEMBER PROCEDURE detalhesPessoa (SELF tp_pessoa)
 ) NOT FINAL NOT INSTANTIABLE;
 /
   
 CREATE OR REPLACE TYPE BODY tp_pessoa AS	
-  -- Retorna Media das idades
-  FINAL MEMBER FUNCTION mediaIdade RETURN NUMBER IS
+  -- Retorna a quantidade de telefones por pessoa
+  FINAL MEMBER FUNCTION quantidadeTelefones RETURN NUMBER IS
   BEGIN
-    RETURN AVG(idade);
+    RETURN telefone.COUNT;
   END;
 
   -- Retorna os detalhes da pessoa
