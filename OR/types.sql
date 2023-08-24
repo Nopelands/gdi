@@ -97,7 +97,55 @@ CREATE OR REPLACE TYPE tp_cliente UNDER tp_pessoa(
 /
 
 -- Produto
+CREATE OR REPLACE TYPE tp_produto AS OBJECT(
+  codigo NUMBER,
+  nome VARCHAR2(30),
+  lote VARCHAR2(30)
+);
+/
+
 -- Fornecedor
--- ProdutoFornecido (colocar constructor function)
+CREATE OR REPLACE TYPE tp_fornecedor AS OBJECT(
+  cnpj VARCHAR2(14),
+  nome_da_empresa VARCHAR2(50)
+);
+/
+
+-- ProdutoFornecido
+CREATE OR REPLACE TYPE tp_produtoFornecido AS OBJECT(
+  cnpj REF tp_fornecedor,
+  codigo REF tp_produto,
+  CONSTRUCTOR FUNCTION tp_produtoFornecido(
+    cnpj REF tp_fornecedor,
+	codigo REF tp_produto
+  ) RETURN SELF AS RESULT
+);
+/
+
+CREATE OR REPLACE TYPE BODY tp_produtoFornecido AS
+  CONSTRUCTOR FUNCTION tp_produtoFornecido(
+    cnpj REF tp_fornecedor,
+    codigo REF tp_produto
+  ) RETURN SELF AS RESULT IS
+  BEGIN
+    SELF.cnpj := cnpj;
+    SELF.codigo := codigo;
+    RETURN;
+  END;
+END;
+/
+
 -- Reabastece
+CREATE OR REPLACE TYPE tp_reabastece AS OBJECT(
+  produtoFornecido tp_produtoFornecido,
+  cpf REF tp_funcionario
+);
+/
+
 -- Vende
+CREATE OR REPLACE TYPE tp_vende AS OBJECT(
+  cpf REF tp_funcionario,
+  cpf_cliente REF tp_cliente,
+  codigo REF tp_produto,
+  data_e_hora DATE
+);
