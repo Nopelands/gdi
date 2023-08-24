@@ -3,7 +3,8 @@ CREATE OR REPLACE TYPE tp_telefone AS OBJECT(
   numero VARCHAR2(11)
 );
 /
-  
+ 
+-- VARRAY Telefone
 CREATE OR REPLACE TYPE tp_array_telefone AS VARRAY(3) OF tp_telefone;
 /
 
@@ -18,15 +19,23 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT(
   idade NUMBER,
   telefone tp_array_telefone,
   FINAL MEMBER FUNCTION quantidadeTelefones RETURN NUMBER,
+  MAP MEMBER FUNCTION anoDeNascimento RETURN NUMBER,
   MEMBER PROCEDURE detalhesPessoa (SELF tp_pessoa)
 ) NOT FINAL NOT INSTANTIABLE;
 /
-  
+
+-- Pessoa Type Body
 CREATE OR REPLACE TYPE BODY tp_pessoa AS	
   -- Retorna a quantidade de telefones por pessoa
   FINAL MEMBER FUNCTION quantidadeTelefones RETURN NUMBER IS
   BEGIN
     RETURN telefone.COUNT;
+  END;
+  
+  -- Retorna o ano de nascimento da pessoa
+  MAP MEMBER FUNCTION anoDeNascimento RETURN NUMBER IS
+  BEGIN
+    RETURN 2023 - idade;
   END;
 
   -- Retorna os detalhes da pessoa
@@ -47,6 +56,7 @@ CREATE OR REPLACE TYPE tp_dependente AS OBJECT(
 );
 /
 
+-- Dependente Type Body
 CREATE OR REPLACE TYPE BODY tp_dependente AS
   ORDER MEMBER FUNCTION ordenaDependente(D tp_dependente) RETURN INTEGER IS
   selfID VARCHAR2(250) := SELF.nome_completo;
@@ -77,6 +87,7 @@ CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa(
 );
 /
 
+-- Funcionario Type Body
 CREATE OR REPLACE TYPE BODY tp_funcionario AS
   OVERRIDING MEMBER PROCEDURE detalhesPessoa (SELF tp_funcionario) IS
   BEGIN
@@ -122,6 +133,7 @@ CREATE OR REPLACE TYPE tp_produtoFornecido AS OBJECT(
 );
 /
 
+-- produtoFornecido Type Body
 CREATE OR REPLACE TYPE BODY tp_produtoFornecido AS
   CONSTRUCTOR FUNCTION tp_produtoFornecido(
     cnpj REF tp_fornecedor,
