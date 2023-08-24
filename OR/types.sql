@@ -82,7 +82,7 @@ CREATE OR REPLACE TYPE nt_dependente_funcionario AS TABLE OF tp_dependente
 CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa(
   cargo VARCHAR2(10),
   cpf_supervisor REF tp_funcionario,
-  dependentes nt_dependente_funcionario,
+  dependente nt_dependente_funcionario,
   OVERRIDING MEMBER PROCEDURE detalhesPessoa (SELF tp_funcionario)
 );
 /
