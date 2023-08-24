@@ -33,7 +33,7 @@ CREATE OR REPLACE TYPE BODY tp_pessoa AS
   MEMBER PROCEDURE detalhesPessoa (SELF tp_pessoa) IS
   BEGIN
     DBMS_OUTPUT.PUT_LINE('Detalhes da Pessoa:');
-    DBMS_OUTPUT.PUT_LINE('CPF:'|| cpf);
+    DBMS_OUTPUT.PUT_LINE('CPF: '|| cpf);
     DBMS_OUTPUT.PUT_LINE('Nome: '|| nome);
     DBMS_OUTPUT.PUT_LINE('Idade: '||to_char(idade));
   END;
@@ -68,21 +68,20 @@ END;
 CREATE OR REPLACE TYPE nt_dependente_funcionario AS TABLE OF tp_dependente
 /
 	
--- Funcionario (Erro)
+-- Funcionario
 CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa(
-  cpf REF tp_pessoa,
   cargo VARCHAR2(10),
   cpf_supervisor REF tp_funcionario,
   dependentes nt_dependente_funcionario,
   OVERRIDING MEMBER PROCEDURE detalhesPessoa (SELF tp_funcionario)
-) NOT FINAL NOT INSTANTIABLE;
+);
 /
 
 CREATE OR REPLACE TYPE BODY tp_funcionario AS
   OVERRIDING MEMBER PROCEDURE detalhesPessoa (SELF tp_funcionario) IS
   BEGIN
     DBMS_OUTPUT.PUT_LINE('Detalhes do Funcionario:');
-    DBMS_OUTPUT.PUT_LINE('CPF:'|| cpf);
+    DBMS_OUTPUT.PUT_LINE('CPF: '|| cpf);
     DBMS_OUTPUT.PUT_LINE('Nome: '|| nome);
     DBMS_OUTPUT.PUT_LINE('Cargo: '|| cargo);
     DBMS_OUTPUT.PUT_LINE('Idade: '||to_char(idade));
@@ -90,12 +89,11 @@ CREATE OR REPLACE TYPE BODY tp_funcionario AS
 END;
 /
 
--- Cliente (Erro)
+-- Cliente
 CREATE OR REPLACE TYPE tp_cliente UNDER tp_pessoa(
-  cpf REF tp_pessoa,
   id_pontos NUMBER,
   pontos NUMBER
-) NOT FINAL NOT INSTANTIABLE; 
+); 
 /
 
 -- Produto
