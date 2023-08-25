@@ -44,7 +44,7 @@ CREATE TABLE reabastece OF tp_reabastece (
 -- Vende
 CREATE TABLE vende OF tp_vende (
   cpf WITH ROWID REFERENCES funcionario,
-  cpf_cliente WITH ROWID REFERENCES cliente,
+  cpf_cliente SCOPE IS cliente,
   codigo WITH ROWID REFERENCES produto,
   data_e_hora NOT NULL
 );
