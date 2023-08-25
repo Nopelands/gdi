@@ -115,6 +115,10 @@ CREATE OR REPLACE TYPE tp_produto AS OBJECT(
 );
 /
 
+-- Alter Type Produto
+ALTER TYPE tp_produto MODIFY ATTRIBUTE nome VARCHAR2(40) CASCADE;
+/
+
 -- Fornecedor
 CREATE OR REPLACE TYPE tp_fornecedor AS OBJECT(
   cnpj VARCHAR2(14),
