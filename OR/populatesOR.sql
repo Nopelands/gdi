@@ -73,3 +73,115 @@ INSERT INTO cliente VALUES (
   100
 );
 /
+
+-- Produto Sabão
+INSERT INTO produto VALUES (
+  01,
+  'Sbone Dove',
+  'Lote12345'
+);
+/
+
+-- Produto 02
+INSERT INTO produto VALUES (
+  02,
+  'Shampoo Anticaspa Clear',
+  'Lote23456'
+);
+/
+
+-- Produto 03
+INSERT INTO produto VALUES (
+  03,
+  'Condicionador Pantene Pro-V',
+  'Lote34567'
+);
+/
+
+-- Produto 04
+INSERT INTO produto VALUES (
+  04,
+  'Creme Hidratante Nivea Soft',
+  'Lote45678'
+);
+/
+
+-- Produto 05
+INSERT INTO produto VALUES (
+  05,
+  'Creme Dental Colgate Total 12',
+  'Lote56789'
+);
+/
+
+-- Produto 06
+INSERT INTO produto VALUES (
+  06,
+  'Desodorante Axe Dark Temptation',
+  'Lote67890'
+);
+/
+
+-- Produto 07
+INSERT INTO produto VALUES (
+  07,
+  'Saboneteira de Parede',
+  'Lote78901'
+);
+/
+
+-- Produto 08
+INSERT INTO produto VALUES (
+  08,
+  'Barbeador Elétrico Philips Series 5000',
+  'Lote89012'
+);
+/
+
+-- Produto 09
+INSERT INTO produto VALUES (
+  09,
+  'Secador de Cabelo Taiff',
+  'Lote90123'
+);
+/
+
+-- Produto 10
+INSERT INTO produto VALUES (
+  10,
+  'Fone de Ouvido Bluetooth JBL',
+  'Lote10101'
+);
+/
+
+-- Produto 11
+INSERT INTO produto VALUES (
+  11,
+  'Óculos de Sol Ray-Ban Aviador',
+  'Lote11111'
+);
+/
+
+-- Produto 12
+INSERT INTO produto VALUES (
+  12,
+  'Tênis Adidas Ultraboost',
+  'Lote12121'
+);
+/
+
+-- Produto 13
+INSERT INTO produto VALUES (
+  13,
+  'Máquina de Café Nespresso',
+  'Lote13131'
+);
+/
+
+-- Produto 14
+INSERT INTO produto VALUES (
+  14,
+  'Bolsa Louis Vuitton Neverfull',
+  'Lote14141'
+);
+/
