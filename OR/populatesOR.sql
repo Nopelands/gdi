@@ -58,12 +58,6 @@ INSERT INTO cliente VALUES (
 );
 /
 
--- Funcionário Ricardo
-INSERT INTO funcionario VALUES (
-  '1234567890',
-  'Gerente'
-);
-/
 
 -- Cliente Silvio
 INSERT INTO cliente VALUES (
