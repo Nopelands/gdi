@@ -40,13 +40,18 @@ FROM fornecedor
 WHERE cnpj IN 
 (SELECT DEREF(P.cnpj).cnpj FROM produtoFornecido P WHERE DEREF(P.codigo).codigo = 08);
 
+-- Retorna os dados da tabela Reabastece onde o cpf especificado aparece
+SELECT DEREF(R.produtoFornecido.cnpj).cnpj AS cnpj, DEREF(R.produtoFornecido.codigo).codigo AS produto, DEREF(R.cpf).cpf as cpf
+FROM reabastece R
+WHERE DEREF(R.cpf).cpf = '00698199049'
+ORDER BY DEREF(R.produtoFornecido.codigo).codigo;
+
 -- Consulta à VARRAY --
 
 -- Retorna o nome, cpf e os telefones de cada funcionário
 SELECT nome, cpf, T.* FROM funcionario A, TABLE(A.telefone) T;
 
--- Retorna o cpf e os telefones de cada cliente
-SELECT cpf, T.* FROM cliente A, TABLE(A.telefone) T;
+SELECT nome, cpf, T.* FROM cliente A, TABLE(A.telefone) T;
 
 -- Consulta à NESTED TABLE --
 
@@ -56,16 +61,42 @@ SELECT * FROM TABLE (SELECT D.dependente FROM funcionario D WHERE D.cpf = '44718
 -- Consulta às funções --
 
 -- FINAL MEMBER FUNCTION quantidadeTelefones
-SELECT A.quantidadeTelefones() AS quantidade_de_Telefones 
+
+SELECT nome, A.quantidadeTelefones() AS quantidade_de_Telefones 
 FROM funcionario A WHERE A.cpf = '09000676401';
 
-SELECT B.quantidadeTelefones() AS quantidade_de_Telefones 
+SELECT nome, B.quantidadeTelefones() AS quantidade_de_Telefones 
 FROM funcionario B WHERE B.cpf = '20442555024';
 
 -- MAP MEMBER FUNCTION anoDeNascimento
 
+SELECT F.anoDeNascimento() AS ano_de_nascimento FROM funcionario F WHERE F.cpf = '00698199049';
+
+SELECT C.anoDeNascimento() AS ano_de_nascimento FROM cliente C WHERE C.cpf = '6666666666';
+
 -- MEMBER PROCEDURE detalhesPessoa
+
+DECLARE
+  funcionario tp_funcionario;
+BEGIN
+  SELECT VALUE(F) INTO funcionario FROM funcionario F WHERE F.cpf = '09000676401';
+  funcionario.detalhesPessoa();
+END;
+
+DECLARE
+  cliente tp_cliente;
+BEGIN
+  SELECT VALUE(C) INTO cliente FROM cliente C WHERE C.cpf = '5555555555';
+  cliente.detalhesPessoa();
+END;
 
 -- ORDER MEMBER FUNCTION ordenaDependente
 
--- CONSTRUCTOR FUNCTION tp_produtoFornecido
+DECLARE
+    dep1 tp_dependente;
+    dep2 tp_dependente;
+BEGIN
+    dep1 := tp_dependente('Joaquim');
+    dep2 := tp_dependente('Fernanda');
+    DBMS_OUTPUT.PUT_LINE(dep1.ordenaDependente(dep2));
+END;
