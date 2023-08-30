@@ -6,7 +6,7 @@ INSERT INTO funcionario VALUES (
   87,
   'Apt 154',
   '22715320',
-  28)
+  28,
   (tp_array_telefone(tp_telefone('51445667415'))),
   'supervisor',
   NULL,

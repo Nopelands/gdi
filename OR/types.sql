@@ -132,7 +132,7 @@ CREATE OR REPLACE TYPE tp_produtoFornecido AS OBJECT(
   codigo REF tp_produto,
   CONSTRUCTOR FUNCTION tp_produtoFornecido(
     cnpj REF tp_fornecedor,
-	codigo REF tp_produto
+	  codigo REF tp_produto
   ) RETURN SELF AS RESULT
 );
 /
