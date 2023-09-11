@@ -4,35 +4,35 @@ db.pais.insertMany([
         nome: "Brasil",
         capital: "Brasília",
         populacao: "211 Milhões",
-        idiomaOficial: "Português"
+        idiomaOficial: ["Português"]
     },
     {
         _id: 2,
         nome: "Estados Unidos",
         capital: "Washington, D.C",
         populacao: "311 Milhões",
-        idiomaOficial: "Inglês"
+        idiomaOficial: ["Inglês"]
     },
     {
         _id: 3,
         nome: "França",
         capital: "Paris",
         populacao: "67 Milhões",
-        idiomaOficial: "Francês"
+        idiomaOficial: ["Francês"]
     },
     {
         _id: 4,
         nome: "Alemanha",
         capital: "Berlim",
         populacao: "83 Milhões",
-        idiomaOficial: "Alemão"
+        idiomaOficial: ["Alemão"]
     },
     {
         _id: 5,
         nome: "Japão",
         capital: "Tóquio",
         populacao: "126 Milhões",
-        idiomaOficial: "japonês"
+        idiomaOficial: ["japonês"]
     },
     {
         _id: 6,
@@ -46,14 +46,14 @@ db.pais.insertMany([
         nome: "Austrália",
         capital: "Camberra",
         populacao: "25 Milhões",
-        idiomaOficial: "Inglês"
+        idiomaOficial: ["Inglês"]
     },
     {
         _id: 8,
         nome: "China",
         capital: "Pequim",
         populacao: "1.4 Bilhões",
-        idiomaOficial: "Mandarim"
+        idiomaOficial: ["Mandarim"]
     },
     {
         _id: 9,
@@ -67,6 +67,6 @@ db.pais.insertMany([
         nome: "Reino Unido",
         capital: "Londres",
         populacao: "67 Milhões",
-        idiomaOficial: "Inglês"
+        idiomaOficial: ["Inglês"]
     }
 ]);

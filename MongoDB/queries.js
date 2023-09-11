@@ -11,5 +11,29 @@ db.roteiro.find({paisId: db.pais.findOne({nome: "China"})._id},
 
 db.atracao.find({precoEntrada: {$gte: 40.00}}).pretty();
 
-// 
+// Retorna a media das avaliações de cada roteiro
+
+db.avaliacaoRoteiro.aggregate([{ 
+    $group: {_id: "$roteiroId", avaliacao: {$avg: "$classificacao"}}
+}]);
+
+// Retorna o nome e quantidade dos países que falam determinada lingua
+
+db.pais.mapReduce(
+    function(){
+        for (var i = 0; i < this.idiomaOficial.length; i++) {
+            emit(this.idiomaOficial[i], 1);
+        }
+    },
+    function(key, values) {
+        return Array.sum(values)
+    },
+    {
+        'out': 'pais_por_idioma'
+    }
+)
+
+db.pais_por_idioma.find();
+
+//
 
