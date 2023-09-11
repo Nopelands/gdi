@@ -32,7 +32,7 @@ db.pais.insertMany([
         nome: "Japão",
         capital: "Tóquio",
         populacao: "126 Milhões",
-        idiomaOficial: ["japonês"]
+        idiomaOficial: ["Japonês"]
     },
     {
         _id: 6,

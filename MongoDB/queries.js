@@ -31,7 +31,7 @@ db.pais.mapReduce(
     {
         'out': 'pais_por_idioma'
     }
-)
+);
 
 db.pais_por_idioma.find();
 
@@ -69,6 +69,12 @@ db.avaliacaoRoteiro.aggregate([
 // Retorna todos os países que falam inglês
 
 db.pais.find({ idiomaOficial: { $exists: true, $all: ["Inglês"] }});
+
+// Retorna a quantidade de avaliações totais
+
+db.avaliacaoRoteiro.aggregate([
+    {$count: "quantidade"}
+])
 
 // Retorna as 3 atrações mais baratas
 
@@ -113,7 +119,7 @@ db.avaliacaoRoteiro.aggregate([
             }
         }
     }
-])
+]);
 
 // Retorna o maior preço de entrada das atrações
 
@@ -124,7 +130,57 @@ db.atracao.aggregate([
     { $project: {
         _id: 0
     }}
+]);
+
+// Atualiza a duração do roteiro dado o id dele
+
+db.roteiro.updateOne({ _id: 9 }, { $set: { duracao: 10 }});
+
+// Adicionando espanhol aos idiomas oficiais do pais
+
+db.pais.updateOne({ _id: 1 }, { $addToSet: { idiomaOficial: "Espanhol" }})
+
+// Retorna todos os pontos turísticos que são palácios
+
+db.pontoTuristico.find({
+    $where: function() {
+        return((this.tipo) == "Palácio")
+    }
+});
+
+// Inserindo um avaliação
+
+db.avaliacaoRoteiro.insertOne({
+    _id: 6,
+    roteiroId: 5,
+    classificacao: 4,
+    comentario: "Paris é fenomenal!",
+    dataAvaliacao: new Date("2023-09-10"),
+    nomeAvaliador: "José Roberto"
+});
+
+// Retorna a quantidade de avaliações de cada roteiro
+
+db.avaliacaoRoteiro.aggregate([
+    { $group: {_id: "$roteiroId", qtdAvaliações: { $sum: 1}}}
+]).pretty();
+
+// Filtra os países que tem como idioma oficial o japonês
+
+db.pais.aggregate([
+    {
+        $project: {
+            idiomaOficial: {
+                $filter: {
+                    input: "$idiomaOficial",
+                    as: "idioma",
+                    cond: { $eq: ["$$idioma","Japonês"]}
+                }
+            }
+        }
+    }
 ])
 
-//
+// Mudar o nome do collection roteiro para roteiros
 
+db.roteiro.renameCollection("roteiros");
