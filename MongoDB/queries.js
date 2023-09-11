@@ -39,5 +39,92 @@ db.pais_por_idioma.find();
 
 db.atracao.find({ $text: { $search: "\"08:00\"" } }).pretty();
 
+// Retorna todos os pontos turísticos que são museus
+
+db.pontoTuristico.aggregate([
+    {$match: {tipo: "Museu"}},
+    {$sort: {_id: 1}},
+    {$project: {_id: 0, nome: 1, descricao: 1, tipo: 1}},
+]).pretty();
+
+// Retorna todos os roteiros que possuem avaliação
+
+db.avaliacaoRoteiro.aggregate([
+    {$lookup: {
+        from: "roteiro",
+        localField: "roteiroId",
+        foreignField: "_id",
+        as: "roteiro_info"
+    }},
+    {$unwind: "$roteiro_info"},
+    {$group: {
+        _id: "$roteiro_info.nome"
+    }},
+    {$project: {
+        _id:0,
+        nome: "$_id",
+    }}
+]).pretty();
+
+// Retorna todos os países que falam inglês
+
+db.pais.find({ idiomaOficial: { $exists: true, $all: ["Inglês"] }});
+
+// Retorna as 3 atrações mais baratas
+
+db.atracao.find().sort({ precoEntrada: 1 }).limit(3);
+
+// Retorna todos os países que tem 2 idiomas oficiais
+
+db.pais.find({ idiomaOficial: {$size: 2} }).pretty();
+
+// Função que retorna a quantidade de semanas do roteiro
+
+db.roteiro.aggregate([
+    {
+        $addFields: {
+            semanas: {
+                $function: {
+                    body: function(duracao){
+                        if(duracao >= 7){
+                            return Math.floor(duracao / 7)
+                        }
+                        else{
+                            return 0
+                        }
+                    },
+                    args: ["$duracao"],
+                    lang: "js"
+                }
+            }
+        }
+    }
+]).pretty();
+
+// Retorna o id da avalicao, o id do roteiro 
+// e se a avaliação foi feita depois do dia 08 de setembro retorna true se não false
+
+db.avaliacaoRoteiro.aggregate([
+    {
+        $project: {
+            roteiroId: 1,
+            avaliacaoRecente: {
+                $cond: { if: {$gte: ["$dataAvaliacao", ISODate("2023-09-08")]}, then: true, else:false}
+            }
+        }
+    }
+])
+
+// Retorna o maior preço de entrada das atrações
+
+db.atracao.aggregate([
+    { $group: {
+        _id: 0, precoMax: {$max: "$precoEntrada"}
+    }},
+    { $project: {
+        _id: 0
+    }}
+])
+
 //
 
