@@ -36,6 +36,8 @@ db.pais.mapReduce(
 db.pais_por_idioma.find();
 
 // Retorna todas atrações que começam as 8 da manhã
+db.atracao.createIndex({ 
+    horarioFuncionamento: "text" });
 
 db.atracao.find({ $text: { $search: "\"08:00\"" } }).pretty();
 
